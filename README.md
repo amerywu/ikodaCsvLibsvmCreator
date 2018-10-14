@@ -8,9 +8,9 @@ In addition, ikodaCsvLibsvmCreator streams the data to a Spark cluster.
 
 ### ikodaCsvLibsvmCreator can:
 
-1. Collects data dynamically. New columns create on the fly.
-1. Maintains a UID for each column.
-1. Maintains a category or label for each row.
+1. Collect data dynamically. New columns create on the fly.
+1. Maintain a UID for each column.
+1. Maintain a category or label for each row.
 1. Run thread safe instances for the synchronous collection of distinct datasets.
 1. Save data as a CSV or LIBSVM (either appending or overwriting). 
 1. Divide the data for saving into LIBSVM and CSV components.
