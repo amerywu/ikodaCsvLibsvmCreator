@@ -19,6 +19,7 @@ In addition, ikodaCsvLibsvmCreator streams the data to a Spark cluster.
 1. Merges CSV files.
 1. Merges LIBSVM files.
 1. Streams data to a Spark cluster
+1. Emails the data in CSV format
 
 
 
