@@ -12,6 +12,12 @@ import java.util.concurrent.locks.ReentrantLock;
 
 import org.apache.logging.log4j.Logger;
 
+
+/**
+ * Thread safe file monitoring
+ * @author jake
+ *
+ */
 public class FileList
 {
 

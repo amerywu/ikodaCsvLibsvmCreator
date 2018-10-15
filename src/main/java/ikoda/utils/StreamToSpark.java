@@ -9,6 +9,12 @@ import java.util.concurrent.BlockingQueue;
 
 import org.apache.logging.log4j.Logger;
 
+/****
+ * 
+ * Streaming utility
+ * @author jake
+ *
+ */
 public class StreamToSpark
 {
 

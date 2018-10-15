@@ -6,6 +6,12 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 
+
+/****
+ * Generatees UIDs and UUIDs
+ * @author jake
+ *
+ */
 public class IDGenerator
 {
 	private static IDGenerator idgenerator;

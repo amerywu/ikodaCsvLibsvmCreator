@@ -3,6 +3,11 @@ package ikoda.utils;
 import java.util.HashMap;
 import java.util.Iterator;
 
+/****
+ * Utility for timing function performance
+ * @author jake
+ *
+ */
 public class TicToc
 {
 

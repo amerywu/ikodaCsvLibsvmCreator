@@ -6,6 +6,11 @@ import java.util.Iterator;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
+/****
+ * Simple web page reader
+ * @author jake
+ *
+ */
 public class SimpleHtmlUnit
 {
 

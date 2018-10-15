@@ -4,6 +4,11 @@ import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Properties;
 
+/***
+ * Utility for managining multiple properties files
+ * @author jake
+ *
+ */
 public class MultiplePropertiesSingleton
 {
 	private static MultiplePropertiesSingleton mpSingleton;

@@ -10,6 +10,12 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import org.apache.logging.log4j.Logger;
 
+
+/***
+ * An accumulator for status messages that can be passed to logging mechanisms
+ * @author jake
+ *
+ */
 public class ProcessStatus
 {
 	private static Logger logger = SSm.getAppLogger();

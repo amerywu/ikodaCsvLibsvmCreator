@@ -32,6 +32,10 @@ public class CSVSpreadsheetCreator extends AbstractSpreadsheetCreator
 	protected String localPorts;
 	protected String localUrl;
 
+	/**
+	 * @param inLogger
+	 * @param inPathToDir
+	 */
 	public CSVSpreadsheetCreator(Logger inLogger, String inPathToDir)
 	{
 		super("UnnamedSpreadsheet");
@@ -41,6 +45,11 @@ public class CSVSpreadsheetCreator extends AbstractSpreadsheetCreator
 		logger = inLogger;
 	}
 
+	/**
+	 * @param inname
+	 * @param inLogger
+	 * @param inPathToDir
+	 */
 	public CSVSpreadsheetCreator(String inname, Logger inLogger, String inPathToDir)
 	{
 		super(inname);
@@ -51,6 +60,17 @@ public class CSVSpreadsheetCreator extends AbstractSpreadsheetCreator
 		logger = inLogger;
 	}
 
+	/**
+	 * 
+	 * Opens a CSV file and changes a column name
+	 * @param path
+	 * @param uidCol
+	 * @param columnName
+	 * @param replaceFrom
+	 * @param replaceWith
+	 * @param columnsToIgnore
+	 * @throws IKodaUtilsException
+	 */
 	public synchronized void changeCsvField(String path, String uidCol, String columnName, String replaceFrom,
 			String replaceWith, String[] columnsToIgnore) throws IKodaUtilsException
 	{
@@ -158,6 +178,14 @@ public class CSVSpreadsheetCreator extends AbstractSpreadsheetCreator
 
 	}
 
+	/**
+	 * 
+	 * Emails the dataset in CSV format
+	 * @param emailTo
+	 * @param subject
+	 * @param messageContent
+	 * @throws IKodaUtilsException
+	 */
 	public synchronized void email(String emailTo, String subject, String messageContent) throws IKodaUtilsException
 	{
 		try
@@ -188,11 +216,21 @@ public class CSVSpreadsheetCreator extends AbstractSpreadsheetCreator
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see ikoda.utils.AbstractSpreadsheetCreator#finalizeAndJoinBlocks(java.lang.String)
+	 */
 	public synchronized void finalizeAndJoinBlocks(String fileName) throws IKodaUtilsException
 	{
 		finalizeAndJoinBlocks(fileName, true);
 	}
 
+	/**
+	 * If a print block method saved data to disk (typically in order to reduce memory load),
+	 * then this command will merge all blocks into a single data set.
+	 * @param fileName
+	 * @param dumpOldFiles
+	 * @throws IKodaUtilsException
+	 */
 	public synchronized void finalizeAndJoinBlocks(String fileName, boolean dumpOldFiles) throws IKodaUtilsException
 	{
 
@@ -223,12 +261,27 @@ public class CSVSpreadsheetCreator extends AbstractSpreadsheetCreator
 
 	}
 
+	/**
+	 * If a print block method saved data to disk (typically in order to reduce memory load),
+	 * then this command will merge all blocks into a single data set.
+	 * @param fileName
+	 * @param columnsToIgnore
+	 * @throws IKodaUtilsException
+	 */
 	public synchronized void finalizeAndJoinBlocksLibSvm(String fileName, String[] columnsToIgnore)
 			throws IKodaUtilsException
 	{
 		finalizeAndJoinBlocksLibSvm(fileName, columnsToIgnore, "FINAL_");
 	}
 
+	/**
+	 * If a print block method saved data to disk (typically in order to reduce memory load),
+	 * then this command will merge all blocks into a single data set.
+	 * @param fileName
+	 * @param columnsToIgnore
+	 * @param prefix
+	 * @throws IKodaUtilsException
+	 */
 	public synchronized void finalizeAndJoinBlocksLibSvm(String fileName, String[] columnsToIgnore, String prefix)
 			throws IKodaUtilsException
 	{
@@ -258,6 +311,12 @@ public class CSVSpreadsheetCreator extends AbstractSpreadsheetCreator
 
 	}
 
+	/**
+	 * Generates a CSV format String of the entire dataset. Handy for smaller datasets. Not suited for very large datasets.
+	 * @param path
+	 * @return
+	 * @throws IKodaUtilsException
+	 */
 	public synchronized String generateCSVFile(String path) throws IKodaUtilsException
 	{
 		try
@@ -327,11 +386,9 @@ public class CSVSpreadsheetCreator extends AbstractSpreadsheetCreator
 					continue;
 				}
 
-				sb.append("ColumnHeadTuple(");
 				sb.append(String.valueOf(count));
 				sb.append(COMMA);
 				sb.append(colName);
-				sb.append(")");
 				sb.append(END);
 				list.add(sb.toString());
 
@@ -348,7 +405,12 @@ public class CSVSpreadsheetCreator extends AbstractSpreadsheetCreator
 		}
 	}
 
-	public Map<String, Integer> generateLibSvmColumnMap(String[] columnsToIgnore) throws IKodaUtilsException
+	/**
+	 * @param columnsToIgnore
+	 * @return
+	 * @throws IKodaUtilsException
+	 */
+	protected Map<String, Integer> generateLibSvmColumnMap(String[] columnsToIgnore) throws IKodaUtilsException
 	{
 		try
 		{
@@ -388,7 +450,8 @@ public class CSVSpreadsheetCreator extends AbstractSpreadsheetCreator
 		}
 	}
 
-	public List<LabelValuesTuple> generateLibSvmRows(String[] columnsToIgnore) throws IKodaUtilsException
+
+	protected List<LabelValuesTuple> generateLibSvmRows(String[] columnsToIgnore) throws IKodaUtilsException
 	{
 		List<LabelValuesTuple> rows = new ArrayList<LabelValuesTuple>();
 		try
@@ -483,11 +546,9 @@ public class CSVSpreadsheetCreator extends AbstractSpreadsheetCreator
 			{
 				StringBuilder sb = new StringBuilder();
 				String s = itr.next();
-				sb.append("(");
 				sb.append(s);
 				sb.append(COMMA);
 				sb.append(targetMap.get(s));
-				sb.append(")");
 				sb.append(END);
 				list.add(sb.toString());
 			}
@@ -584,11 +645,17 @@ public class CSVSpreadsheetCreator extends AbstractSpreadsheetCreator
 
 	}
 
+	/**
+	 * @return
+	 */
 	public String getLocalPorts()
 	{
 		return localPorts;
 	}
 
+	/**
+	 * @return
+	 */
 	public String getLocalUrl()
 	{
 		return localUrl;
@@ -616,6 +683,12 @@ public class CSVSpreadsheetCreator extends AbstractSpreadsheetCreator
 		return true;
 	}
 
+	/**
+	 * Loads CSV from local file system
+	 * @param fileName
+	 * @param uidCol
+	 * @throws IKodaUtilsException
+	 */
 	public synchronized void loadCsv(String fileName, String uidCol) throws IKodaUtilsException
 	{
 		String path = cleanFullPath(pathToDir,fileName);
@@ -811,6 +884,9 @@ public class CSVSpreadsheetCreator extends AbstractSpreadsheetCreator
 		}
 	}
 
+	/**
+	 * @throws IKodaUtilsException
+	 */
 	public synchronized void printCsvAppend() throws IKodaUtilsException
 	{
 
@@ -818,6 +894,10 @@ public class CSVSpreadsheetCreator extends AbstractSpreadsheetCreator
 
 	}
 
+	/**
+	 * @param fileName
+	 * @throws IKodaUtilsException
+	 */
 	public synchronized void printCsvAppend(String fileName) throws IKodaUtilsException
 	{
 		try
@@ -834,16 +914,29 @@ public class CSVSpreadsheetCreator extends AbstractSpreadsheetCreator
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see ikoda.utils.AbstractSpreadsheetCreator#printCsvBlock()
+	 */
 	public synchronized void printCsvBlock() throws IKodaUtilsException
 	{
 		printCsvBlock(name);
 	}
 
+	/* (non-Javadoc)
+	 * @see ikoda.utils.AbstractSpreadsheetCreator#printCsvBlock(java.lang.String)
+	 */
 	public synchronized void printCsvBlock(String fileName) throws IKodaUtilsException
 	{
 		printCsvBlock(fileName, new ArrayList<String>());
 	}
 
+	/**
+	 * Saves data to file and clears data from memory
+	 * Subsequently, use the {@link #finalizeAndJoinBlocks(String) finalizeAndJoinBlocks} method to recompile all blocks into a single file
+	 * @param fileName
+	 * @param columnsToKeep
+	 * @throws IKodaUtilsException
+	 */
 	public synchronized void printCsvBlock(String fileName, List<String> columnsToKeep) throws IKodaUtilsException
 	{
 		try
@@ -864,11 +957,20 @@ public class CSVSpreadsheetCreator extends AbstractSpreadsheetCreator
 		}
 	}
 
+	/**
+	 * Saves CSV to file, overwriting any pre-existing files
+	 * @throws IKodaUtilsException
+	 */
 	public synchronized void printCsvFinal() throws IKodaUtilsException
 	{
 		printCsvFinal(name);
 	}
 
+	/**
+	 * Saves CSV to file, overwriting any pre-existing files. Includes the project prefix (if set) and "FINAL" as part of the file name
+	 * @param fileName
+	 * @throws IKodaUtilsException
+	 */
 	public synchronized void printCsvFinal(String fileName) throws IKodaUtilsException
 	{
 		try
@@ -891,11 +993,20 @@ public class CSVSpreadsheetCreator extends AbstractSpreadsheetCreator
 		}
 	}
 
+	/**
+	 * Saves CSV to file, overwriting any pre-existing files. 
+	 * @throws IKodaUtilsException
+	 */
 	public synchronized void printCsvOverwrite() throws IKodaUtilsException
 	{
 		printCsvOverwrite(name);
 	}
 
+	/**
+	 * Saves CSV to file, overwriting any pre-existing files. 
+	 * @param fileName
+	 * @throws IKodaUtilsException
+	 */
 	public synchronized void printCsvOverwrite(String fileName) throws IKodaUtilsException
 	{
 		try
@@ -922,6 +1033,13 @@ public class CSVSpreadsheetCreator extends AbstractSpreadsheetCreator
 		}
 	}
 
+	/**
+	 * Saves Libsvm to file, appending any pre-existing files. 
+	 * @param fileName
+	 * @param targetColumn
+	 * @param columnsToIgnore
+	 * @throws IKodaUtilsException
+	 */
 	public synchronized void printLibSvmAppender(String fileName, String targetColumn, String[] columnsToIgnore)
 			throws IKodaUtilsException
 	{
@@ -945,12 +1063,26 @@ public class CSVSpreadsheetCreator extends AbstractSpreadsheetCreator
 		}
 	}
 
+	/**
+	 * Saves Libsvm to file, appending any pre-existing files. 
+	 * @param targetColumn
+	 * @param columnsToIgnore
+	 * @throws IKodaUtilsException
+	 */
 	public synchronized void printLibSvmAppender(String targetColumn, String[] columnsToIgnore)
 			throws IKodaUtilsException
 	{
 		printLibSvmAppender(name, targetColumn, columnsToIgnore);
 	}
 
+	/**
+	 * Saves data to file and clears data from memory
+	 * Subsequently, use the {@link #finalizeAndJoinBlocks(String) finalizeAndJoinBlocks} method to recompile all blocks into a single file
+	 * @param fileName
+	 * @param targetColumn
+	 * @param columnsToIgnore
+	 * @throws IKodaUtilsException
+	 */
 	public synchronized void printLibSvmBlock(String fileName, String targetColumn, String[] columnsToIgnore)
 			throws IKodaUtilsException
 	{
@@ -977,16 +1109,36 @@ public class CSVSpreadsheetCreator extends AbstractSpreadsheetCreator
 		}
 	}
 
+	/**
+	 * Saves data to file and clears data from memory
+	 * Subsequently, use the {@link #finalizeAndJoinBlocks(String) finalizeAndJoinBlocks} method to recompile all blocks into a single file
+	 * @param targetColumn
+	 * @param columnsToIgnore
+	 * @throws IKodaUtilsException
+	 */
 	public synchronized void printLibSvmBlock(String targetColumn, String[] columnsToIgnore) throws IKodaUtilsException
 	{
 		printLibSvmBlock(name, targetColumn, columnsToIgnore);
 	}
 
+	/**
+	 * Saves data to file and clears data from memory
+	 * Subsequently, use the {@link #finalizeAndJoinBlocks(String) finalizeAndJoinBlocks} method to recompile all blocks into a single file
+	 * @param columnsToIgnore
+	 * @throws IKodaUtilsException
+	 */
 	public synchronized void printLibSvmBlock(String[] columnsToIgnore) throws IKodaUtilsException
 	{
 		printLibSvmBlock(name, targetColumnName, columnsToIgnore);
 	}
 
+	/**
+	 * Saves Libsvm to file, overwriting any pre-existing files. Includes the project prefix (if set) and "FINAL" as part of the file name
+	 * @param fileName
+	 * @param targetColumn
+	 * @param columnsToIgnore
+	 * @throws IKodaUtilsException
+	 */
 	public synchronized void printLibSvmFinal(String fileName, String targetColumn, String[] columnsToIgnore)
 			throws IKodaUtilsException
 	{
@@ -1015,6 +1167,12 @@ public class CSVSpreadsheetCreator extends AbstractSpreadsheetCreator
 		}
 	}
 
+	/**
+	 * Saves Libsvm to file, overwriting any pre-existing files. Includes the project prefix (if set) and "FINAL" as part of the file name
+	 * @param fileName
+	 * @param columnsToIgnore
+	 * @throws IKodaUtilsException
+	 */
 	public synchronized void printLibSvmFinal(String fileName, String[] columnsToIgnore) throws IKodaUtilsException
 	{
 		if (null == targetColumnName)
@@ -1025,6 +1183,11 @@ public class CSVSpreadsheetCreator extends AbstractSpreadsheetCreator
 		printLibSvmFinal(fileName, targetColumnName, columnsToIgnore);
 	}
 
+	/**
+	 * Saves Libsvm to file, overwriting any pre-existing files. Includes the project prefix (if set) and "FINAL" as part of the file name
+	 * @param columnsToIgnore
+	 * @throws IKodaUtilsException
+	 */
 	public synchronized void printLibSvmFinal(String[] columnsToIgnore) throws IKodaUtilsException
 	{
 		printLibSvmFinal(name, columnsToIgnore);
@@ -1314,11 +1477,17 @@ public class CSVSpreadsheetCreator extends AbstractSpreadsheetCreator
 
 	}
 
+	/**
+	 * @param localPorts
+	 */
 	public void setLocalPorts(String localPorts)
 	{
 		this.localPorts = localPorts;
 	}
 
+	/**
+	 * @param localUrl
+	 */
 	public void setLocalUrl(String localUrl)
 	{
 		this.localUrl = localUrl;
@@ -1380,6 +1549,14 @@ public class CSVSpreadsheetCreator extends AbstractSpreadsheetCreator
 
 	
 	
+	/**
+	 * 
+	 * Initializes a stream with an ikodaML app deployed on Spark
+	 * @param mlserverUrl
+	 * @param mlserverport
+	 * @return
+	 * @throws IKodaUtilsException
+	 */
 	public String sparkStreamInit(String mlserverUrl, int mlserverport) throws IKodaUtilsException
 	{
 
@@ -1411,17 +1588,42 @@ public class CSVSpreadsheetCreator extends AbstractSpreadsheetCreator
 
 	
 	
+	/**
+	 * Streams data to an ikodaML instance on Spark in CSV format
+	 * @param serverurl
+	 * @param serverport
+	 * @return
+	 * @throws IKodaUtilsException
+	 */
 	public String sparkStreamRun(String serverurl, int serverport) throws IKodaUtilsException
 	{
 		return sparkStreamRun(serverurl, serverport, new ArrayList<String>());
 	}
 
+	/**
+	 * 
+	 * Streams data to an ikodaML instance on Spark in CSV format
+	 * @param serverurl
+	 * @param serverport
+	 * @param columnsToPrint
+	 * @return
+	 * @throws IKodaUtilsException
+	 */
 	public String sparkStreamRun(String serverurl, int serverport, List<String> columnsToPrint)
 			throws IKodaUtilsException
 	{
 		return sparkStreamRun(getCassandraName(), serverurl, serverport, columnsToPrint);
 	}
 
+	/**
+	 * Streams data to an ikodaML instance on Spark in CSV format
+	 * @param nameToStream
+	 * @param serverurl
+	 * @param serverport
+	 * @param columnsToPrint
+	 * @return
+	 * @throws IKodaUtilsException
+	 */
 	public String sparkStreamRun(String nameToStream, String serverurl, int serverport, List<String> columnsToPrint)
 			throws IKodaUtilsException
 	{

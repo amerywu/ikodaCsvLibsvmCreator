@@ -7,6 +7,11 @@ import java.net.Socket;
 
 import org.apache.logging.log4j.Logger;
 
+/***
+ * A "quick and dirty" socket utility
+ * @author jake
+ *
+ */
 public class MomentSocket
 {
 

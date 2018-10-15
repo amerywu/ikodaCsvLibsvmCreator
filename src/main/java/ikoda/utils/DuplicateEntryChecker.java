@@ -6,6 +6,11 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
+/***
+ * Checks for duplicate entries in NLP data
+ * @author jake
+ *
+ */
 public class DuplicateEntryChecker
 {
 

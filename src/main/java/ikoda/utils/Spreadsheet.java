@@ -5,6 +5,30 @@ import java.util.Map;
 
 import org.apache.logging.log4j.Logger;
 
+
+
+/**
+ * 
+ * 
+ * Spreadsheetis a singleton. It maintains multiple dataset instances, each specified by its user defined name.<br>
+ * <br>
+ * Hence:<br>
+ * <br>
+ * Spreadsheet.getInstance().initCsvSpreadsheet("DataOne", "path/to/dir");<br>
+ * Spreadsheet.getInstance().initCsvSpreadsheet("DataTwo", "path/to/dir");<br>
+ * <br>
+ * The above will create two distinct datasets that can receive distinct data into two separate sets.<br><br>
+
+ * addCell(uid, "col1", key)<br>
+ * The row is determined by the uid. <br>
+ * The column name will be created if it does not exist. Columns can be added on the fly. There is no limit to the number of columns that can be created.<br>
+ * The cell value is stored as a String (but can be entered as a String or numeric type).<br><br>
+
+ * Spreadsheet.getInstance().getCsvSpreadSheet("DataName").printCsvOverwrite();<br>
+ *  Here any pre-existing file will be overwritten. If columns have not changed it is also possible to append to an existing file.<br>
+ * @author jake
+ *
+ */
 public class Spreadsheet
 {
 	private static Spreadsheet spreadsheet;
@@ -25,22 +49,21 @@ public class Spreadsheet
 
 	private Map<String, AbstractSpreadsheetCreator> csvSpreadsheetsMap = new HashMap<String, AbstractSpreadsheetCreator>();
 
+	
 	private Spreadsheet()
 	{
 		logger = SSm.getAppLogger();
 	}
 
-	public synchronized Integer getBlockNumber(String fileName)
-	{
-		Integer block = fileNamesByBlockMap.get(fileName);
-		if (null == block)
-		{
-			fileNamesByBlockMap.put(fileName, 0);
-			return 0;
-		}
-		return block;
-	}
 
+
+
+	
+	/**
+	 * Returns an existing instance of CSVSpreadsheetCreator
+	 * @param name
+	 * @return
+	 */
 	public synchronized CSVSpreadsheetCreator getCsvSpreadSheet(String name)
 	{
 		CSVSpreadsheetCreator csvSpreadsheet = (CSVSpreadsheetCreator) csvSpreadsheetsMap.get(getFileName(name));
@@ -66,6 +89,14 @@ public class Spreadsheet
 		return fileName + UNDERSCORE + block;
 	}
 
+	/**
+	 * Returns an existing instance of LibSvmProcessor
+	 * LibSvmProcessor can generate both LIBSVM and CSV format output
+	 * @param name
+	 * @return
+	 * @throws ClassCastException
+	 * @throws IKodaUtilsException
+	 */
 	public synchronized LibSvmProcessor getLibSvmProcessor(String name) throws ClassCastException, IKodaUtilsException
 	{
 
@@ -79,17 +110,34 @@ public class Spreadsheet
 
 	}
 
+	/**
+	 * Creates a new instance of CSVSpreadsheetCreator
+	 * @param name
+	 * @param logger
+	 * @param dirPath
+	 */
 	public synchronized void initCsvSpreadsheet(String name, Logger logger, String dirPath)
 	{
 		initCsvSpreadsheet1(name, logger, dirPath);
 	}
 
+	/**
+	 * Creates a new instance of CSVSpreadsheetCreator
+	 * @param name
+	 * @param dirPath
+	 */
 	public synchronized void initCsvSpreadsheet(String name, String dirPath)
 	{
 
 		initCsvSpreadsheet(name, logger, dirPath);
 	}
 
+	/**
+	 * Creates a new instance of CSVSpreadsheetCreator
+	 * @param name
+	 * @param loggerName
+	 * @param dirPath
+	 */
 	public synchronized void initCsvSpreadsheet(String name, String loggerName, String dirPath)
 	{
 
@@ -97,6 +145,12 @@ public class Spreadsheet
 
 	}
 
+	/**
+	 * Creates a new instance of CSVSpreadsheetCreator
+	 * @param name
+	 * @param logger
+	 * @param dirPath
+	 */
 	public synchronized void initCsvSpreadsheet1(String name, Logger logger, String dirPath)
 	{
 		String csvName = getFileName(name);
@@ -108,6 +162,13 @@ public class Spreadsheet
 
 	}
 
+	/**
+	 * Creates a new instance of LibSvmProcessor
+	 * @param name
+	 * @param logger
+	 * @param targetColumnName
+	 * @param dirPath
+	 */
 	public synchronized void initLibsvm2(String name, Logger logger, String targetColumnName, String dirPath)
 	{
 		String csvName = getFileName(name);
@@ -123,11 +184,24 @@ public class Spreadsheet
 		}
 	}
 
+	/**
+	 * Creates a new instance of LibSvmProcessor
+	 * @param name
+	 * @param targetColumnName
+	 * @param dirPath
+	 */
 	public synchronized void initLibsvm2(String name, String targetColumnName, String dirPath)
 	{
 		initLibsvm2(name, logger.getName(), targetColumnName, dirPath);
 	}
 
+	/**
+	 * Creates a new instance of LibSvmProcessor
+	 * @param name
+	 * @param loggerName
+	 * @param targetColumnName
+	 * @param dirPath
+	 */
 	public synchronized void initLibsvm2(String name, String loggerName, String targetColumnName, String dirPath)
 	{
 
@@ -151,6 +225,10 @@ public class Spreadsheet
 		fileNamesByBlockMap.put(fileName, Integer.valueOf(newBlock));
 	}
 
+	/**
+	 * Removes references to a LibSvmProcessor or CSVSpreadsheetCreator instance from Spreadsheet
+	 * @param name
+	 */
 	public void removeSpreadsheet(String name)
 	{
 		CSVSpreadsheetCreator success = (CSVSpreadsheetCreator) csvSpreadsheetsMap.remove(getFileName(name));
@@ -160,6 +238,12 @@ public class Spreadsheet
 		}
 	}
 
+	/**
+	 * Resets a CSVSpreadsheetCreator by clearing all data, but maintaining metadata such
+	 * as keyspaceName, targetName etc.
+	 * @param fileName
+	 * @param columnsToIgnore
+	 */
 	public synchronized void resetSpreadsheet(final String fileName, String[] columnsToIgnore)
 	{
 		try
@@ -195,6 +279,12 @@ public class Spreadsheet
 		}
 	}
 
+	/**
+	 * Resets a LibSvmProcessor by clearing all data, but maintaining metadata such
+	 * as keyspaceName, targetName etc.
+	 * @param fileName
+	 * @param columnsToIgnore
+	 */
 	public synchronized void resetSpreadsheetLibsvm(final String fileName, String[] columnsToIgnore)
 	{
 		try
@@ -240,6 +330,9 @@ public class Spreadsheet
 		getCsvSpreadSheet(fileName).clearData();
 	}
 
+	/**
+	 * @param s
+	 */
 	public void setSpreadsheetLogger(String s)
 	{
 		logger = initLogger(s);

@@ -3,6 +3,11 @@ package ikoda.utils;
 import java.io.InputStream;
 import java.util.Properties;
 
+/***
+ * Properties management utility
+ * @author jake
+ *
+ */
 public class AdministrationPropertiesSingleton
 {
 

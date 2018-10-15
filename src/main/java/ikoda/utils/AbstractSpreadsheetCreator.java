@@ -54,41 +54,94 @@ public abstract class AbstractSpreadsheetCreator
 	private String keyspaceName = "";
 	private String keyspaceUUID = "";
 
+
 	public AbstractSpreadsheetCreator()
 	{
 
 	}
 	
+
 	public AbstractSpreadsheetCreator(String inname)
 	{
 		name = inname;
 	}
 
+	/**
+	 * Adds a cell to the dataset. The rowId specifies row assignment. columnId specifies the column name.
+	 * Column indices are generated internally. 
+	 * 
+	 * @param inrowId
+	 * @param incolumnId
+	 * @param indataValue
+	 * @throws IKodaUtilsException
+	 */
 	public void addCell(long inrowId, String incolumnId, double indataValue) throws IKodaUtilsException
 	{
 		addCell(String.valueOf(inrowId), incolumnId, String.valueOf(indataValue));
 	}
 
+	/**
+	 * Adds a cell to the dataset. The rowId specifies row assignment. columnId specifies the column name.
+	 * Column indices are generated internally. 
+	 * 
+	 * @param inrowId
+	 * @param incolumnId
+	 * @param indataValue
+	 * @throws IKodaUtilsException
+	 */
 	public void addCell(long inrowId, String incolumnId, float indataValue) throws IKodaUtilsException
 	{
 		addCell(String.valueOf(inrowId), incolumnId, String.valueOf(indataValue));
 	}
 
+	/**
+	 * Adds a cell to the dataset. The rowId specifies row assignment. columnId specifies the column name.
+	 * Column indices are generated internally. 
+	 * 
+	 * @param inrowId
+	 * @param incolumnId
+	 * @param indataValue
+	 * @throws IKodaUtilsException
+	 */
 	public void addCell(long inrowId, String incolumnId, int indataValue) throws IKodaUtilsException
 	{
 		addCell(String.valueOf(inrowId), incolumnId, String.valueOf(indataValue));
 	}
 
+	/**
+	 * Adds a cell to the dataset. The rowId specifies row assignment. columnId specifies the column name.
+	 * Column indices are generated internally. 
+	 * @param inrowId
+	 * @param incolumnId
+	 * @param indataValue
+	 * @throws IKodaUtilsException
+	 */
 	public void addCell(long inrowId, String incolumnId, long indataValue) throws IKodaUtilsException
 	{
 		addCell(String.valueOf(inrowId), incolumnId, String.valueOf(indataValue));
 	}
 
+	/**
+	 * Adds a cell to the dataset. The rowId specifies row assignment. columnId specifies the column name.
+	 * Column indices are generated internally. 
+	 * @param inrowId
+	 * @param incolumnId
+	 * @param indataValue
+	 * @throws IKodaUtilsException
+	 */
 	public void addCell(long inrowId, String incolumnId, String indataValue) throws IKodaUtilsException
 	{
 		addCell(String.valueOf(inrowId), incolumnId, indataValue);
 	}
 
+	/**
+	 * Adds a cell to the dataset. The rowId specifies row assignment. columnId specifies the column name.
+	 * Column indices are generated internally. 
+	 * @param inrowId
+	 * @param incolumnId
+	 * @param indataValue
+	 * @throws IKodaUtilsException
+	 */
 	public synchronized void addCell(String inrowId, String incolumnId, String indataValue) throws IKodaUtilsException
 	{
 		try
@@ -193,6 +246,11 @@ public abstract class AbstractSpreadsheetCreator
 		return out.trim();
 	}
 
+	/**
+	 * Clears the data in the columnMap, targetMap and all rows of the dataset.
+	 * Metadata, such as keyspaceName and targetName remain. References to this instance 
+	 * in Spreadsheet also remain
+	 */
 	public synchronized void clearAll()
 	{
 		clearData();
@@ -200,11 +258,19 @@ public abstract class AbstractSpreadsheetCreator
 		targetMap.clear();
 	}
 
+	/**
+	 * Clears the data in  all rows of the dataset.
+	 * ColumMap and targetMap data remain. Metadata, such as keyspaceName and targetName remain. References to this instance 
+	 * in Spreadsheet also remain
+	 */
 	public synchronized void clearData()
 	{
 		data.clear();
 	}
 
+	/**
+	 * @return
+	 */
 	public int columnCount()
 	{
 		return columnHeadings.size();
@@ -227,6 +293,12 @@ public abstract class AbstractSpreadsheetCreator
 		return sb.toString();
 	}
 
+	/**
+	 * If a print block method saved data to disk (typically in order to reduce memory load),
+	 * then this command will merge all blocks into a single data set.
+	 * @param fileName
+	 * @throws IKodaUtilsException
+	 */
 	public abstract void finalizeAndJoinBlocks(String fileName) throws IKodaUtilsException;
 
 	protected String generateColumnNames() throws IKodaUtilsException
@@ -271,21 +343,33 @@ public abstract class AbstractSpreadsheetCreator
 	}
 	
 	
+	/**
+	 * @return
+	 */
 	public Map<String, String> getColumnHeadings()
 	{
 		return columnHeadings;
 	}
 	
+	/**
+	 * @return
+	 */
 	public String[] getColumnNames()
 	{
 		return columnHeadings.keySet().toArray(new String[columnHeadings.keySet().size()]);
 	}
 
+	/**
+	 * @return
+	 */
 	public Map<String, HashMap<String, String>> getData()
 	{
 		return data;
 	}
 
+	/**
+	 * @return
+	 */
 	public String getKeyspaceName()
 	{
 		if(keyspaceName.isEmpty())
@@ -296,46 +380,77 @@ public abstract class AbstractSpreadsheetCreator
 		return keyspaceName;
 	}
 
+	/**
+	 * @return
+	 */
 	public String getKeyspaceUUID()
 	{
 		return keyspaceUUID;
 	}
 	
+	/**
+	 * @return
+	 */
 	public String getName()
 	{
 		return name;
 	}
 
+	/**
+	 * @return
+	 */
 	public final String getPathToDirectory()
 	{
 		return pathToDir;
 	}
 
+	/**
+	 * @return
+	 */
 	public String getPkColumnName()
 	{
 		return pkColumnName;
 	}
 
+	/**
+	 * Project prefix is a convenience user defined name that is used to prefix all saved output files.
+	 * @return
+	 */
 	public String getProjectPrefix()
 	{
 		return projectPrefix;
 	}
 
+	/**
+	 * The column name that defines the label column for a LIBSVM file
+	 * @return
+	 */
 	public String getTargetColumnName()
 	{
 		return targetColumnName;
 	}
 
+	/**
+	 * @param targetName
+	 * @return
+	 */
 	public Integer getTargetIdx(String targetName)
 	{
 		return targetMap.get(targetName);
 	}
 
+	/**
+	 * @return
+	 */
 	public Map<String, Integer> getTargetMap()
 	{
 		return targetMap;
 	}
 
+	/**
+	 * @param targetIdx
+	 * @return
+	 */
 	public String getTargetName(Integer targetIdx)
 	{
 		if (targetMap.size() != targetMapInverse.size())
@@ -368,7 +483,12 @@ public abstract class AbstractSpreadsheetCreator
 		}
 	}
 
-	public boolean hasCell(String columnId) throws IKodaUtilsException
+	/**
+	 * @param columnId
+	 * @return
+	 * @throws IKodaUtilsException
+	 */
+	public boolean hasColumnName(String columnId) throws IKodaUtilsException
 	{
 		try
 		{
@@ -385,6 +505,11 @@ public abstract class AbstractSpreadsheetCreator
 		}
 	}
 
+	/**
+	 * Convenience method to show top n rows as String
+	 * @param rowCount
+	 * @return
+	 */
 	public String head(int rowCount)
 	{
 
@@ -430,6 +555,10 @@ public abstract class AbstractSpreadsheetCreator
 		return sb.toString();
 	}
 
+	/**
+	 * Returns all metadata about the dataset
+	 * @return
+	 */
 	public String info()
 	{
 		StringBuilder sb = new StringBuilder();
@@ -459,10 +588,23 @@ public abstract class AbstractSpreadsheetCreator
 		return false;
 	}
 
+	/**
+	 * 
+	 * @throws IKodaUtilsException
+	 */
 	public abstract void printCsvBlock() throws IKodaUtilsException;
 
+	/**
+	 * @param fileName
+	 * @throws IKodaUtilsException
+	 */
 	public abstract void printCsvBlock(String fileName) throws IKodaUtilsException;
 
+	/**
+	 * Removes column with specified column name
+	 * @param columnId
+	 * @throws IKodaUtilsException
+	 */
 	public void removeColumn(String columnId) throws IKodaUtilsException
 	{
 		try
@@ -512,6 +654,12 @@ public abstract class AbstractSpreadsheetCreator
 		}
 	}
 
+	/**
+	 * Removes all rows which contain value  in column named columnId
+	 * @param columnId
+	 * @param value
+	 * @throws IKodaUtilsException
+	 */
 	public void removeRowByCellValue(String columnId, String value) throws IKodaUtilsException
 	{
 		try
@@ -545,6 +693,11 @@ public abstract class AbstractSpreadsheetCreator
 		}
 	}
 	
+	/**
+	 * Converts all columns to lower case. Where there are upper and lower case columns that have values in the same row,
+	 * the lower case value remains, the uppercase is removed.
+	 * @throws IKodaUtilsException
+	 */
 	public void columnsToLowerCase() throws IKodaUtilsException
 	{
 		try
@@ -583,6 +736,11 @@ public abstract class AbstractSpreadsheetCreator
 		}
 	}
 
+	/**
+	 * @param oldName
+	 * @param newName
+	 * @throws IKodaUtilsException
+	 */
 	public void renameColumn(String oldName, String newName) throws IKodaUtilsException
 	{
 		try
@@ -648,6 +806,9 @@ public abstract class AbstractSpreadsheetCreator
 		}
 	}
 
+	/**
+	 * @return
+	 */
 	public int rowCount()
 	{
 		return data.size();
@@ -672,21 +833,34 @@ public abstract class AbstractSpreadsheetCreator
 		return colHeadsToPrint;
 	}
 
+	/**
+	 * @param keyspaceName
+	 */
 	public void setKeyspaceName(String keyspaceName)
 	{
 		this.keyspaceName = keyspaceName.toLowerCase().replaceAll("[^A-Za-z0-9 ]", "");
 	}
 
+	/**
+	 * @param keyspaceUUID
+	 */
 	public void setKeyspaceUUID(String keyspaceUUID)
 	{
 		this.keyspaceUUID = keyspaceUUID;
 	}
 
+	/**
+	 * @param f_rowId
+	 */
 	public void setPkColumnName(String f_rowId)
 	{
 		this.pkColumnName = f_rowId;
 	}
 
+	/**
+	 * Project prefix is a convenience user defined name that is used to prefix all saved output files.
+	 * @param projectPrefix
+	 */
 	public synchronized void setProjectPrefix(String projectPrefix)
 	{
 		logger.info("Project prefix set to: " + projectPrefix);
@@ -702,6 +876,10 @@ public abstract class AbstractSpreadsheetCreator
 	
 	
 	
+	/**
+	 * The column name that defines the label column for a LIBSVM file
+	 * @param targetColumnName
+	 */
 	public synchronized void setTargetColumnName(String targetColumnName)
 	{
 		logger.info("Target column's name set to: " + targetColumnName);
@@ -750,6 +928,11 @@ public abstract class AbstractSpreadsheetCreator
 	}
 	
 	
+	/**
+	 * Validates data integrity
+	 * @return
+	 * @throws IKodaUtilsException
+	 */
 	public boolean validate() throws IKodaUtilsException
 	{
 		try

@@ -3,6 +3,12 @@ package ikoda.utils;
 import java.util.ArrayList;
 import java.util.List;
 
+
+/**
+ * Email queue
+ * @author jake
+ *
+ */
 public class EmailQueueSingleton implements Runnable
 {
 	private static EmailQueueSingleton emailQueueSingleton;

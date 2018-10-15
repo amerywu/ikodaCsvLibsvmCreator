@@ -19,6 +19,8 @@ import java.util.stream.Collectors;
 
 import org.apache.logging.log4j.Logger;
 
+
+
 public class LibSvmProcessor extends CSVSpreadsheetCreator
 {
 
@@ -148,6 +150,11 @@ public class LibSvmProcessor extends CSVSpreadsheetCreator
 	}
 
 	
+	/**
+	 * Loads a LIBSVM file from Hadoop (Currently assumes coalesced to 1 partition)
+	 * @param fileCoreName
+	 * @throws IKodaUtilsException
+	 */
 	public void loadLibsvm(String fileCoreName) throws IKodaUtilsException
 	{
 		try
@@ -168,6 +175,12 @@ public class LibSvmProcessor extends CSVSpreadsheetCreator
 	}
 
 	
+	/**
+	 * Loads a LIBSVM file from Hadoop (Currently assumes coalesced to 1 partition)
+	 * @param fileCoreName
+	 * @param autoGenerateIDColumn
+	 * @throws IKodaUtilsException
+	 */
 	public void loadLibsvm(String fileCoreName, boolean autoGenerateIDColumn) throws IKodaUtilsException
 	{
 		try
@@ -367,11 +380,22 @@ public class LibSvmProcessor extends CSVSpreadsheetCreator
 
 	}
 
+	/**
+	 * Loads a LIBSVM file from local disk
+	 * @param fileCoreName
+	 * @throws IKodaUtilsException
+	 */
 	public void loadLibsvmPJ(String fileCoreName) throws IKodaUtilsException
 	{
 		loadLibsvmPJ(pathToDir, fileCoreName);
 	}
 
+	/**
+	 * Loads a LIBSVM file from local disk
+	 * @param path
+	 * @param fileCoreName
+	 * @throws IKodaUtilsException
+	 */
 	public void loadLibsvmPJ(String path, String fileCoreName) throws IKodaUtilsException
 	{
 		try
@@ -423,6 +447,10 @@ public class LibSvmProcessor extends CSVSpreadsheetCreator
 
 	}
 
+	/**
+	 * Merges new columns into the dataset
+	 * @param toMerge
+	 */
 	public void mergeColumns(LibSvmProcessor toMerge)
 	{
 		try
@@ -436,6 +464,12 @@ public class LibSvmProcessor extends CSVSpreadsheetCreator
 		}
 	}
 
+	/**
+	 * Merges another instance of LibSvmProcessor into this one 
+	 * @param toMerge
+	 * @return
+	 * @throws IKodaUtilsException
+	 */
 	public String mergeIntoLibsvm(LibSvmProcessor toMerge) throws IKodaUtilsException
 	{
 		try
@@ -495,6 +529,11 @@ public class LibSvmProcessor extends CSVSpreadsheetCreator
 		}
 	}
 
+	/**
+	 * Merges another instance of LibSvmProcessor into this one. Validates data integrity. This is slower.
+	 * @param toMerge
+	 * @throws IKodaUtilsException
+	 */
 	public void mergeIntoLibsvmValidating(LibSvmProcessor toMerge) throws IKodaUtilsException
 	{
 		try
@@ -693,6 +732,13 @@ public class LibSvmProcessor extends CSVSpreadsheetCreator
 	}
 
 	
+	/**
+	 * Streams data to Spark ikodaML app as LIBSVM format data plus a column map and a target map
+	 * @param serverurl
+	 * @param serverport
+	 * @return
+	 * @throws IKodaUtilsException
+	 */
 	public String sparkStreamRunLibsvm(String serverurl, int serverport) throws IKodaUtilsException
 	{
 		logger.debug("sparkStreamRunLibsvm");
@@ -700,6 +746,15 @@ public class LibSvmProcessor extends CSVSpreadsheetCreator
 		return sparkStreamRunLibsvm(serverurl, serverport, new String[0]);
 	}
 
+	/**
+	 * 
+	 * Streams data to Spark ikodaML app as LIBSVM format data plus a column map and a target map
+	 * @param serverurl
+	 * @param serverport
+	 * @param columnsToIgnore
+	 * @return
+	 * @throws IKodaUtilsException
+	 */
 	public String sparkStreamRunLibsvm(String serverurl, int serverport, String[] columnsToIgnore)
 			throws IKodaUtilsException
 	{
@@ -802,6 +857,11 @@ public class LibSvmProcessor extends CSVSpreadsheetCreator
 		}
 	}
 
+	/**
+	 * @param rowCount
+	 * @return
+	 * @throws IKodaUtilsException
+	 */
 	public LibSvmProcessor subsetLibsvmNoReplacement(int rowCount) throws IKodaUtilsException
 	{
 		try

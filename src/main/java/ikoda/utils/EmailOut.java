@@ -25,6 +25,11 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
+/***
+ * Email Utility
+ * @author jake
+ *
+ */
 public class EmailOut
 {
 
