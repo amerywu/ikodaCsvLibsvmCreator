@@ -15,7 +15,7 @@ In addition, ikodaCsvLibsvmCreator streams the data to a Spark cluster.
 1. Runs thread safe instances for the synchronous collection of distinct datasets.
 1. Saves data as a CSV or LIBSVM (either appending or overwriting). 
 1. Divides the data for saving into LIBSVM and CSV components.
-1. Opens Data in CSV ir LIBSVM format.
+1. Opens Data in CSV or LIBSVM format.
 1. Merges CSV files.
 1. Merges LIBSVM files.
 1. Streams data to a Spark cluster
