@@ -10,17 +10,19 @@ import org.apache.logging.log4j.Logger;
 /**
  * 
  * 
- * Spreadsheetis a singleton. It maintains multiple dataset instances, each specified by its user defined name.<br>
+ * Spreadsheet is a singleton. It maintains multiple dataset instances (of type CSVSpreadsheetCreator or LibsvmProcessor), each specified by its user defined name.<br>
  * <br>
  * Hence:<br>
  * <br>
- * Spreadsheet.getInstance().initCsvSpreadsheet("DataOne", "path/to/dir");<br>
- * Spreadsheet.getInstance().initCsvSpreadsheet("DataTwo", "path/to/dir");<br>
+ *       Spreadsheet.getInstance().initCsvSpreadsheet("DataOne", "path/to/dir");<br>
+ *       Spreadsheet.getInstance().initCsvSpreadsheet("DataTwo", "path/to/dir");<br>
  * <br>
- * The above will create two distinct datasets that can receive distinct data into two separate sets.<br><br>
+ * creates two distinct datasets that can receive distinct data into two separate sets.<br><br>
 
- * addCell(uid, "col1", key)<br>
- * The row is determined by the uid. <br>
+ * Data is added to a dataset by specifying its rowid, column name, and value.<br><br>
+ *        addCell(rowId, "col1", key)<br>
+ *        
+ * The row is determined by the rowId. <br>
  * The column name will be created if it does not exist. Columns can be added on the fly. There is no limit to the number of columns that can be created.<br>
  * The cell value is stored as a String (but can be entered as a String or numeric type).<br><br>
 
