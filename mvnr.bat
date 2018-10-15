@@ -11,7 +11,7 @@ GOTO :end
 
 echo copying docs
 
-xcopy C:\Users\jake\__workspace\ikoda-utils\target\site\apidocs C:\Users\jake\__workspace\scalaProjects\ikodaSparse\docs\javadoc /S /E /F /R /Y /I
+xcopy C:\Users\jake\__workspace\ikoda-utils\target\site\apidocs C:\Users\jake\__workspace\ikoda-utils\docs\javadoc /S /E /F /R /Y /I
 
 
 :end
