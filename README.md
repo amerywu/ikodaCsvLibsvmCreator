@@ -26,5 +26,4 @@ In addition, ikodaCsvLibsvmCreator streams the data to a Spark cluster.
 ### see <a href="https://github.com/amerywu/ikodaCsvLibsvmCreator/wiki">Simple Guide for details</a>
 
 
-### https://amerywu.github.io/ikodaCsvLibsvmCreator/javadoc/index.html
-https://amerywu.github.io/ikodaCsvLibsvmCreator/javadoc/ikoda/utils/Spreadsheet.html
+####<a href="https://amerywu.github.io/ikodaCsvLibsvmCreator/javadoc/ikoda/utils/Spreadsheet.html">API docs</a>
